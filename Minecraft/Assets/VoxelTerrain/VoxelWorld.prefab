@@ -41,12 +41,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VoxelWorldChunkPrefab: {fileID: 11431816, guid: 3d58f3f3d0fec4e4ca5df84216f95b47,
     type: 2}
+  HeightMap: {fileID: 0}
   ChunksWide: 1
   ChunksDeep: 1
   ChunksHigh: 1
   ChunkVoxelSize: 1
   PhysicalVoxelSize: 1
   VoxelTextureTilesAcross: 8
+  VoxelTextureUVBiasPercent: 0.02
   VoxelTypeDefAir:
     MaxHealth: 1
     IsVisible: 0
@@ -158,6 +160,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ChunksHigh
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

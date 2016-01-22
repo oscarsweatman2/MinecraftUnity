@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class VoxelWorld : MonoBehaviour
     public static VoxelWorld Inst = null;
 
     public VoxelWorldChunk VoxelWorldChunkPrefab = null;
+
+    public Texture2D HeightMap = null;
 
     public int ChunksWide       = 2;
     public int ChunksDeep       = 2;
@@ -17,6 +20,7 @@ public class VoxelWorld : MonoBehaviour
     public float PhysicalVoxelSize = 1.0f;
 
     public int VoxelTextureTilesAcross = 8;
+    public float VoxelTextureUVBiasPercent = 0.02f;
 
     public VoxelTypeDefinition VoxelTypeDefAir      = new VoxelTypeDefinition(VoxelType.Air, 1, false, false);
     public VoxelTypeDefinition VoxelTypeDefGrass    = new VoxelTypeDefinition(VoxelType.Grass, 1, true, true);
@@ -51,7 +55,8 @@ public class VoxelWorld : MonoBehaviour
 
         InstantiateChunks();
 
-        GenerateWorldVoxels();
+        GenerateWorldVoxels(GenerateVoxel_Pass1);
+        GenerateWorldVoxels(GenerateVoxel_Pass2);
 
         Initialized = true;
 
@@ -83,7 +88,7 @@ public class VoxelWorld : MonoBehaviour
         }
     }
 
-    public void GenerateWorldVoxels()
+    public void GenerateWorldVoxels(System.Action<Voxel> action)
     {
         for (int x = 0; x < ChunksWide; ++x)
         {
@@ -93,13 +98,13 @@ public class VoxelWorld : MonoBehaviour
                 {
                     VoxelWorldChunk chunk = Chunks[x, y, z];
 
-                    GenerateChunkVoxels(chunk);
+                    GenerateChunkVoxels(chunk, action);
                 }
             }
         }
     }
 
-    public void GenerateChunkVoxels(VoxelWorldChunk chunk)
+    public void GenerateChunkVoxels(VoxelWorldChunk chunk, System.Action<Voxel> action)
     {
         for (int x = 0; x < chunk.Width; ++x)
         {
@@ -109,18 +114,50 @@ public class VoxelWorld : MonoBehaviour
                 {
                     Voxel voxel = chunk.GetVoxel(x, y, z);
 
-                    GenerateVoxel(voxel);
+                    action(voxel);
                 }
             }
         }
     }
 
-    public void GenerateVoxel(Voxel voxel)
+    public void GenerateVoxel_Pass1(Voxel voxel)
     {
-        voxel.SetType(Random.value < 0.10f ? VoxelType.Air : VoxelType.Grass);
-        if (voxel.Position.Y == 0)
-            voxel.SetType(VoxelType.Stone);
-        voxel.SetType(VoxelType.Grass);
+        voxel.SetType(VoxelType.Dirt);
+
+        if (HeightMap != null)
+        {
+            float worldRatioX = (float)voxel.Position.X / VoxelWidth;
+            float worldRatioY = (float)voxel.Position.Y / VoxelHeight;
+            float worldRatioZ = (float)voxel.Position.Z / VoxelDepth;
+
+            Color texel = HeightMap.GetPixel((int)(worldRatioX * HeightMap.width), (int)(worldRatioZ * HeightMap.height));
+
+            if (worldRatioY > texel.r)
+                voxel.SetType(VoxelType.Air);
+        }
+    }
+
+    public void GenerateVoxel_Pass2(Voxel voxel)
+    {
+        if (voxel.TypeDef.Type == VoxelType.Dirt)
+        {
+            Voxel above = voxel.NeighborOrNull(VoxelDirection.Top);
+            if (!Voxel.IsSolid(above))
+                voxel.SetType(VoxelType.Grass);
+            else
+            {
+                // Get the voxel 4 spaces above me... if it's solid...then I will be stone
+                IntVec3 testVoxelPos = new IntVec3(voxel.Position.X, voxel.Position.Y + 2, voxel.Position.Z);
+                if (IsVoxelWorldIndexValid(testVoxelPos.X, testVoxelPos.Y, testVoxelPos.Z))
+                {
+                    Voxel testVoxel = GetVoxel(testVoxelPos);
+                    if (Voxel.IsSolid(testVoxel))
+                    {
+                        voxel.SetType(VoxelType.Stone);
+                    }
+                }
+            }
+        }
     }
 
     public void Refresh()
