@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
 
 	void Start ()
     {
-        transform.position = new Vector3(VoxelTerrain.Inst.XLen * 0.5f, VoxelTerrain.Inst.YLen + 10.0f, VoxelTerrain.Inst.ZLen * 0.5f);
 	}
 	
 	void Update ()
@@ -24,10 +23,13 @@ public class Player : MonoBehaviour
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 if (Physics.Raycast(CrosshairRay, out hitInfo, ReachDistance, ReachMask))
                 {
-                    Voxel voxel = VoxelTerrain.Inst.GetVoxelFromCollider(hitInfo.collider);
-                    if (voxel != null)
+                    if (hitInfo.collider is BoxCollider)
                     {
-                        voxel.TakeDamage(1);
+                        Voxel voxel = VoxelWorld.Inst.GetVoxelFromCollider(hitInfo.collider as BoxCollider);
+                        if (voxel != null)
+                        {
+                            voxel.TakeDamage(1);
+                        }
                     }
                 }
             }
