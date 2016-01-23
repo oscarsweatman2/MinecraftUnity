@@ -4,6 +4,8 @@
 
 Minecraft/Library/
 Minecraft/Temp/
+*.sln
+*.csproj
 
 #################
 ## Eclipse
