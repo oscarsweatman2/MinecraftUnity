@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 
 public struct IntVec3
 {
@@ -10,6 +10,11 @@ public struct IntVec3
         X = x;
         Y = y;
         Z = z;
+    }
+
+    public Vector3 ToVec3()
+    {
+        return new Vector3(X, Y, Z);
     }
 
     public IntVec3 Offset(IntVec3 v)

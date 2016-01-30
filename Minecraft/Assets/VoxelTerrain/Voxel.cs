@@ -49,6 +49,14 @@ public class Voxel
         return null;
     }
 
+    public bool IsNeighborSolid(VoxelDirection direction)
+    {
+        Voxel neighbor = NeighborOrNull(direction);
+        if (neighbor != null)
+            return Voxel.IsSolid(neighbor);
+        return false;
+    }
+
     public bool CanBeSeen()
     {
         return TypeDef.IsVisible;

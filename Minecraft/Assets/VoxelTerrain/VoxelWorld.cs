@@ -124,17 +124,17 @@ public class VoxelWorld : MonoBehaviour
     {
         voxel.SetType(VoxelType.Dirt);
 
-        if (HeightMap != null)
-        {
-            float worldRatioX = (float)voxel.Position.X / VoxelWidth;
-            float worldRatioY = (float)voxel.Position.Y / VoxelHeight;
-            float worldRatioZ = (float)voxel.Position.Z / VoxelDepth;
+        //if (HeightMap != null)
+        //{
+        //    float worldRatioX = (float)voxel.Position.X / VoxelWidth;
+        //    float worldRatioY = (float)voxel.Position.Y / VoxelHeight;
+        //    float worldRatioZ = (float)voxel.Position.Z / VoxelDepth;
 
-            Color texel = HeightMap.GetPixel((int)(worldRatioX * HeightMap.width), (int)(worldRatioZ * HeightMap.height));
+        //    Color texel = HeightMap.GetPixel((int)(worldRatioX * HeightMap.width), (int)(worldRatioZ * HeightMap.height));
 
-            if (worldRatioY > texel.r)
-                voxel.SetType(VoxelType.Air);
-        }
+        //    if (worldRatioY > texel.r)
+        //        voxel.SetType(VoxelType.Air);
+        //}
     }
 
     public void GenerateVoxel_Pass2(Voxel voxel)
@@ -179,6 +179,58 @@ public class VoxelWorld : MonoBehaviour
                 }
             }
         }
+    }
+
+    public List<Voxel> GetVoxels(Vector3 center, float radius)
+    {
+        List<Voxel> returnVoxels = new List<Voxel>();
+
+        int iRadius = Mathf.Max(0, (int)radius + 1);
+
+        List<Voxel> testVoxels = GetVoxels(
+                                    (int)center.x - iRadius,
+                                    (int)center.y - iRadius,
+                                    (int)center.z - iRadius,
+                                    (int)center.x + iRadius,
+                                    (int)center.y + iRadius,
+                                    (int)center.z + iRadius);
+
+        Vector3 halfVoxel = new Vector3(PhysicalVoxelSize * 0.5f, PhysicalVoxelSize * 0.5f, PhysicalVoxelSize * 0.5f);
+
+        returnVoxels.AddRange(testVoxels.Where(vox => (vox.Position.ToVec3() + halfVoxel - center).magnitude <= radius));
+        return returnVoxels;
+    }
+
+    public List<Voxel> GetVoxels(int minx, int miny, int minz, int maxx, int maxy, int maxz)
+    {
+        List<Voxel> returnVoxels = new List<Voxel>();
+
+        minx = Mathf.Clamp(minx, 0, VoxelWidth - 1);
+        miny = Mathf.Clamp(miny, 0, VoxelHeight - 1);
+        minz = Mathf.Clamp(minz, 0, VoxelDepth - 1);
+        maxx = Mathf.Clamp(maxx, 0, VoxelWidth - 1);
+        maxy = Mathf.Clamp(maxy, 0, VoxelHeight - 1);
+        maxz = Mathf.Clamp(maxz, 0, VoxelDepth - 1);
+
+        int _minx = Mathf.Min(minx, maxx);
+        int _miny = Mathf.Min(miny, maxy);
+        int _minz = Mathf.Min(minz, maxz);
+        int _maxx = Mathf.Max(minx, maxx);
+        int _maxy = Mathf.Max(miny, maxy);
+        int _maxz = Mathf.Max(minz, maxz);
+
+        for (int x = _minx; x <= _maxx; ++x)
+        {
+            for (int y = _miny; y <= _maxy; ++y)
+            {
+                for (int z = _minz; z <= _maxz; ++z)
+                {
+                    returnVoxels.Add(GetVoxel(x, y, z));
+                }
+            }
+        }
+
+        return returnVoxels;
     }
 
     public Voxel GetVoxel(IntVec3 pos)
