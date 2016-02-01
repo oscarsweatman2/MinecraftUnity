@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 439168}
-  - 114: {fileID: 11474388}
+  - 114: {fileID: 11433294}
   m_Layer: 0
   m_Name: DirtBomb
   m_TagString: Untagged
@@ -58,7 +58,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 439168}
   m_RootOrder: 0
---- !u!114 &11474388
+--- !u!114 &11433294
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 116178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e64b00b8de9c140ac8505064469a39, type: 3}
+  m_Script: {fileID: 11500000, guid: 880d60738be764a4a83bdf531f3e0da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SecondsTillKill: 3
@@ -282,7 +282,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4278214513
+        rgba: 4278197796
       maxColor:
         serializedVersion: 2
         rgba: 4278201397
@@ -1579,7 +1579,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d23c487c3975b764cab5e896f8e305e9, type: 2}
+  - {fileID: 2100000, guid: 687909fff5e500543adbd352a2edb121, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1631,7 +1631,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startColor.minColor.rgba
-      value: 4278214513
+      value: 4278197796
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.scalar
@@ -1649,6 +1649,10 @@ Prefab:
       propertyPath: InitialModule.startRotation.maxCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 687909fff5e500543adbd352a2edb121, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 116178}

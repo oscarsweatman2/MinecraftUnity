@@ -49,7 +49,7 @@
 			v2f vert(appdata v)
 			{
 				half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-				half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
+				half nl = max(0.4, dot(worldNormal, _WorldSpaceLightPos0.xyz));
 
 				v2f o;
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
@@ -66,13 +66,13 @@
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 texColor = tex2D(_MainTex, i.uv);
+				fixed shadow = max(0, SHADOW_ATTENUATION(i));
 
-				fixed shadow = SHADOW_ATTENUATION(i);
-				fixed3 lighting = i.diffuse * shadow + i.ambient;
+				fixed4 outColor = fixed4(1, 1, 1, 1);
 
-				texColor.rgb *= lighting;
+				outColor.rgb = texColor.rgb * i.diffuse * (i.ambient + shadow);
 
-				return texColor;
+				return outColor;
 			}
 
 			ENDCG

@@ -223,7 +223,7 @@ GameObject:
   - 143: {fileID: 164298675}
   - 114: {fileID: 164298674}
   m_Layer: 0
-  m_Name: Thing (1)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,7 +346,7 @@ GameObject:
   - 143: {fileID: 251629361}
   - 114: {fileID: 251629360}
   m_Layer: 0
-  m_Name: Thing (2)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +558,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -647,7 +647,7 @@ GameObject:
   - 143: {fileID: 365358727}
   - 114: {fileID: 365358726}
   m_Layer: 0
-  m_Name: Thing (4)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1293,7 +1293,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -1413,7 +1413,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -1461,7 +1461,7 @@ Light:
     m_Resolution: 1
     m_Strength: 1
     m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_NormalBias: 0.01
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
@@ -1804,7 +1804,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -1831,7 +1831,7 @@ GameObject:
   - 143: {fileID: 1135521146}
   - 114: {fileID: 1135521145}
   m_Layer: 0
-  m_Name: Thing (6)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2140,7 +2140,7 @@ GameObject:
   - 143: {fileID: 1368221718}
   - 114: {fileID: 1368221717}
   m_Layer: 0
-  m_Name: Thing (5)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2325,7 +2325,7 @@ GameObject:
   - 143: {fileID: 1396047210}
   - 114: {fileID: 1396047209}
   m_Layer: 0
-  m_Name: Thing (3)
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2537,7 +2537,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -2715,7 +2715,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -3026,7 +3026,7 @@ MonoBehaviour:
   ExplosivePower: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
-  ExplodeEffect: {fileID: 116178, guid: f2cf17a9691d0f3438bad242e679af5f, type: 2}
+  ExplodeEffect: {fileID: 116178, guid: 3931e813b183b4a48826f6392c0a1121, type: 2}
 --- !u!1 &1812455439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,7 +3130,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 104332, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_Name
-      value: Thing
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 11470526, guid: 3192ace1021558343861107ad96b17f6, type: 2}
       propertyPath: m_TurnSpeed
@@ -3312,11 +3312,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksWide
-      value: 16
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksDeep
-      value: 16
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: HeightMap
@@ -3324,7 +3324,7 @@ Prefab:
       objectReference: {fileID: 2800000, guid: 30de582d65ab9194eb63a5bf15dba774, type: 3}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksHigh
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
@@ -3591,7 +3591,7 @@ GameObject:
   - 143: {fileID: 2095772112}
   - 114: {fileID: 2095772107}
   m_Layer: 0
-  m_Name: Thing
+  m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
