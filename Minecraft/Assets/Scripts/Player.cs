@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public Texture Crosshair = null;
     public float CrosshairScale = 1.0f;
 
+    public GameObject ExplodeEffect = null;
+
 	void Start ()
     {
 	}
@@ -103,6 +105,8 @@ public class Player : MonoBehaviour
                 List<Voxel> voxels = VoxelWorld.Inst.GetVoxels(hitInfo.point, radius);
                 voxels.ForEach(vox => vox.SetType(VoxelType.Air));
                 VoxelWorld.Inst.Refresh();
+
+                GameObject.Instantiate(ExplodeEffect, hitInfo.point, Quaternion.identity);
             }
         }
     }

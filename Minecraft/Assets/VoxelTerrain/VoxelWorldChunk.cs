@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class VoxelWorldChunk : MonoBehaviour
 {
-    public IntVec3          ChunkPosition;
+    public IntVec3 ChunkPosition;
 
-    private Mesh            Mesh;
-    private MeshFilter      MeshFilter;
+    private Mesh Mesh;
+    private MeshFilter MeshFilter;
 
-    public int              Width;
-    public int              Height;
-    public int              Depth;
+    public int Width;
+    public int Height;
+    public int Depth;
 
-    private Voxel[,,]       Voxels;
-    
+    private Voxel[,,] Voxels;
+
     private Vector3[] Verts = null;
     private Color[] Colors = null;
     private Vector3[] Norms = null;
@@ -106,7 +106,7 @@ public class VoxelWorldChunk : MonoBehaviour
         foreach (Voxel voxel in Voxels)
             if (voxel.Exposed)
                 exposedVoxels.Add(voxel);
-        
+
         Verts = new Vector3[NumVerts];
         Colors = new Color[NumVerts];
         Norms = new Vector3[NumVerts];
@@ -125,7 +125,7 @@ public class VoxelWorldChunk : MonoBehaviour
 
         float voxelSize = VoxelWorld.Inst.PhysicalVoxelSize;
 
-        float aoMod = 0.5f;
+        float aoMod = 0.1f;
 
         foreach (Voxel voxel in exposedVoxels)
         {
@@ -140,46 +140,18 @@ public class VoxelWorldChunk : MonoBehaviour
             Vector3 tne = bsw + new Vector3(voxelSize, voxelSize, voxelSize);
             Vector3 tse = bsw + new Vector3(voxelSize, voxelSize, 0);
 
-            Color bswColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomSouthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.SouthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomSouth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomWest) ? aoMod : 1.0f);
-            Color bnwColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomNorthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.NorthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomNorth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomWest) ? aoMod : 1.0f);
-            Color bneColor = Color.red
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomNorthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.NorthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomNorth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomEast) ? aoMod : 1.0f);
-            Color bseColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomSouthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.SouthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomSouth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.BottomEast) ? aoMod : 1.0f);
-            Color tswColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopSouthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.SouthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopSouth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopWest) ? aoMod : 1.0f);
-            Color tnwColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopNorthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.NorthWest) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopNorth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopWest) ? aoMod : 1.0f);
-            Color tneColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopNorthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.NorthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopNorth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopEast) ? aoMod : 1.0f);
-            Color tseColor = Color.white
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopSouthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.SouthEast) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopSouth) ? aoMod : 1.0f)
-                                * (voxel.IsNeighborSolid(VoxelDirection.TopEast) ? aoMod : 1.0f);
+            Color tnAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.TopNorth) ? aoMod : 1.0f);
+            Color teAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.TopEast) ? aoMod : 1.0f);
+            Color tsAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.TopSouth) ? aoMod : 1.0f);
+            Color twAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.TopWest) ? aoMod : 1.0f);
+            Color neAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.NorthEast) ? aoMod : 1.0f);
+            Color seAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.SouthEast) ? aoMod : 1.0f);
+            Color swAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.SouthWest) ? aoMod : 1.0f);
+            Color nwAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.NorthWest) ? aoMod : 1.0f);
+            Color bnAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.BottomNorth) ? aoMod : 1.0f);
+            Color beAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.BottomEast) ? aoMod : 1.0f);
+            Color bsAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.BottomSouth) ? aoMod : 1.0f);
+            Color bwAO = Color.white * (voxel.IsNeighborSolid(VoxelDirection.BottomWest) ? aoMod : 1.0f);
 
             if ((voxel.ExposedSides & VoxelSide.Bottom) != VoxelSide.None)
             {
@@ -188,10 +160,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = bsw;
                 Verts[vertIndex + 2] = bse;
                 Verts[vertIndex + 3] = bne;
-                Colors[vertIndex + 0] = bnwColor;
-                Colors[vertIndex + 1] = bswColor;
-                Colors[vertIndex + 2] = bseColor;
-                Colors[vertIndex + 3] = bneColor;
+                Colors[vertIndex + 0] = bnAO * bwAO;
+                Colors[vertIndex + 1] = bsAO * bwAO;
+                Colors[vertIndex + 2] = bsAO * beAO;
+                Colors[vertIndex + 3] = bnAO * beAO;
                 Norms[vertIndex + 0] = down;
                 Norms[vertIndex + 1] = down;
                 Norms[vertIndex + 2] = down;
@@ -209,7 +181,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 vertIndex += 4;
                 indIndex += 6;
             }
-            
+
             if ((voxel.ExposedSides & VoxelSide.South) != VoxelSide.None)
             {
                 // South
@@ -217,10 +189,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = tsw;
                 Verts[vertIndex + 2] = tse;
                 Verts[vertIndex + 3] = bse;
-                Colors[vertIndex + 0] = bswColor;
-                Colors[vertIndex + 1] = tswColor;
-                Colors[vertIndex + 2] = tseColor;
-                Colors[vertIndex + 3] = bseColor;
+                Colors[vertIndex + 0] = swAO * bsAO;
+                Colors[vertIndex + 1] = swAO * tsAO;
+                Colors[vertIndex + 2] = seAO * tsAO;
+                Colors[vertIndex + 3] = seAO * bsAO;
                 Norms[vertIndex + 0] = south;
                 Norms[vertIndex + 1] = south;
                 Norms[vertIndex + 2] = south;
@@ -238,7 +210,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 vertIndex += 4;
                 indIndex += 6;
             }
-            
+
             if ((voxel.ExposedSides & VoxelSide.West) != VoxelSide.None)
             {
                 // West
@@ -246,10 +218,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = tnw;
                 Verts[vertIndex + 2] = tsw;
                 Verts[vertIndex + 3] = bsw;
-                Colors[vertIndex + 0] = bnwColor;
-                Colors[vertIndex + 1] = tnwColor;
-                Colors[vertIndex + 2] = tswColor;
-                Colors[vertIndex + 3] = bswColor;
+                Colors[vertIndex + 0] = bwAO * nwAO;
+                Colors[vertIndex + 1] = twAO * nwAO;
+                Colors[vertIndex + 2] = twAO * swAO;
+                Colors[vertIndex + 3] = bwAO * swAO;
                 Norms[vertIndex + 0] = west;
                 Norms[vertIndex + 1] = west;
                 Norms[vertIndex + 2] = west;
@@ -267,7 +239,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 vertIndex += 4;
                 indIndex += 6;
             }
-            
+
             if ((voxel.ExposedSides & VoxelSide.North) != VoxelSide.None)
             {
                 // North
@@ -275,10 +247,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = tne;
                 Verts[vertIndex + 2] = tnw;
                 Verts[vertIndex + 3] = bnw;
-                Colors[vertIndex + 0] = bneColor;
-                Colors[vertIndex + 1] = tneColor;
-                Colors[vertIndex + 2] = tnwColor;
-                Colors[vertIndex + 3] = bnwColor;
+                Colors[vertIndex + 0] = bnAO * neAO;
+                Colors[vertIndex + 1] = tnAO * neAO;
+                Colors[vertIndex + 2] = tnAO * nwAO;
+                Colors[vertIndex + 3] = bnAO * nwAO;
                 Norms[vertIndex + 0] = north;
                 Norms[vertIndex + 1] = north;
                 Norms[vertIndex + 2] = north;
@@ -296,7 +268,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 vertIndex += 4;
                 indIndex += 6;
             }
-            
+
             if ((voxel.ExposedSides & VoxelSide.East) != VoxelSide.None)
             {
                 // East
@@ -304,10 +276,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = tse;
                 Verts[vertIndex + 2] = tne;
                 Verts[vertIndex + 3] = bne;
-                Colors[vertIndex + 0] = bseColor;
-                Colors[vertIndex + 1] = tseColor;
-                Colors[vertIndex + 2] = tneColor;
-                Colors[vertIndex + 3] = bneColor;
+                Colors[vertIndex + 0] = beAO * seAO;
+                Colors[vertIndex + 1] = teAO * seAO;
+                Colors[vertIndex + 2] = teAO * neAO;
+                Colors[vertIndex + 3] = beAO * neAO;
                 Norms[vertIndex + 0] = east;
                 Norms[vertIndex + 1] = east;
                 Norms[vertIndex + 2] = east;
@@ -325,7 +297,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 vertIndex += 4;
                 indIndex += 6;
             }
-            
+
             if ((voxel.ExposedSides & VoxelSide.Top) != VoxelSide.None)
             {
                 // Top
@@ -333,10 +305,10 @@ public class VoxelWorldChunk : MonoBehaviour
                 Verts[vertIndex + 1] = tnw;
                 Verts[vertIndex + 2] = tne;
                 Verts[vertIndex + 3] = tse;
-                Colors[vertIndex + 0] = tswColor;
-                Colors[vertIndex + 1] = tnwColor;
-                Colors[vertIndex + 2] = tneColor;
-                Colors[vertIndex + 3] = tseColor;
+                Colors[vertIndex + 0] = tsAO * twAO;
+                Colors[vertIndex + 1] = tnAO * twAO;
+                Colors[vertIndex + 2] = tnAO * teAO;
+                Colors[vertIndex + 3] = tsAO * teAO;
                 Norms[vertIndex + 0] = up;
                 Norms[vertIndex + 1] = up;
                 Norms[vertIndex + 2] = up;
@@ -355,7 +327,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 indIndex += 6;
             }
         }
-        
+
         Mesh.vertices = Verts;
         Mesh.colors = Colors;
         Mesh.normals = Norms;
@@ -375,7 +347,7 @@ public class VoxelWorldChunk : MonoBehaviour
                 for (int z = 0; z < Depth; ++z)
                 {
                     Voxel voxel = Voxels[x, y, z];
-                    
+
                     voxel.Exposed = false;
                     voxel.ExposedSides = VoxelSide.None;
 
@@ -443,7 +415,7 @@ public class VoxelWorldChunk : MonoBehaviour
             }
         }
     }
-    
+
     public Voxel GetVoxel(int x, int y, int z)
     {
         return Voxels[x, y, z];
@@ -453,7 +425,7 @@ public class VoxelWorldChunk : MonoBehaviour
     {
         return x >= 0 && y >= 0 && z >= 0 && x < Width && y < Height && z < Depth;
     }
-    
+
     public Voxel GetVoxelFromCollider(BoxCollider collider)
     {
         return ColliderToVoxel[collider];

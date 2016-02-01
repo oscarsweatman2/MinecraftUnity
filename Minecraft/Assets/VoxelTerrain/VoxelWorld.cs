@@ -9,6 +9,7 @@ public class VoxelWorld : MonoBehaviour
 
     public VoxelWorldChunk VoxelWorldChunkPrefab = null;
 
+    public bool UseHeightMap = true;
     public Texture2D HeightMap = null;
 
     public int ChunksWide       = 2;
@@ -124,17 +125,17 @@ public class VoxelWorld : MonoBehaviour
     {
         voxel.SetType(VoxelType.Dirt);
 
-        //if (HeightMap != null)
-        //{
-        //    float worldRatioX = (float)voxel.Position.X / VoxelWidth;
-        //    float worldRatioY = (float)voxel.Position.Y / VoxelHeight;
-        //    float worldRatioZ = (float)voxel.Position.Z / VoxelDepth;
+        if (UseHeightMap && HeightMap != null)
+        {
+            float worldRatioX = (float)voxel.Position.X / VoxelWidth;
+            float worldRatioY = (float)voxel.Position.Y / VoxelHeight;
+            float worldRatioZ = (float)voxel.Position.Z / VoxelDepth;
 
-        //    Color texel = HeightMap.GetPixel((int)(worldRatioX * HeightMap.width), (int)(worldRatioZ * HeightMap.height));
+            Color texel = HeightMap.GetPixel((int)(worldRatioX * HeightMap.width), (int)(worldRatioZ * HeightMap.height));
 
-        //    if (worldRatioY > texel.r)
-        //        voxel.SetType(VoxelType.Air);
-        //}
+            if (worldRatioY > texel.r)
+                voxel.SetType(VoxelType.Air);
+        }
     }
 
     public void GenerateVoxel_Pass2(Voxel voxel)
@@ -205,6 +206,10 @@ public class VoxelWorld : MonoBehaviour
     {
         List<Voxel> returnVoxels = new List<Voxel>();
 
+        // Early out if the request is out of bounds
+        if (minx >= VoxelWidth || miny >= VoxelHeight || minz >= VoxelDepth || maxx < 0 || maxy < 0 || maxz < 0)
+            return returnVoxels;
+
         minx = Mathf.Clamp(minx, 0, VoxelWidth - 1);
         miny = Mathf.Clamp(miny, 0, VoxelHeight - 1);
         minz = Mathf.Clamp(minz, 0, VoxelDepth - 1);
@@ -212,18 +217,18 @@ public class VoxelWorld : MonoBehaviour
         maxy = Mathf.Clamp(maxy, 0, VoxelHeight - 1);
         maxz = Mathf.Clamp(maxz, 0, VoxelDepth - 1);
 
-        int _minx = Mathf.Min(minx, maxx);
-        int _miny = Mathf.Min(miny, maxy);
-        int _minz = Mathf.Min(minz, maxz);
-        int _maxx = Mathf.Max(minx, maxx);
-        int _maxy = Mathf.Max(miny, maxy);
-        int _maxz = Mathf.Max(minz, maxz);
+        //int _minx = Mathf.Min(minx, maxx);
+        //int _miny = Mathf.Min(miny, maxy);
+        //int _minz = Mathf.Min(minz, maxz);
+        //int _maxx = Mathf.Max(minx, maxx);
+        //int _maxy = Mathf.Max(miny, maxy);
+        //int _maxz = Mathf.Max(minz, maxz);
 
-        for (int x = _minx; x <= _maxx; ++x)
+        for (int x = minx; x <= maxx; ++x)
         {
-            for (int y = _miny; y <= _maxy; ++y)
+            for (int y = miny; y <= maxy; ++y)
             {
-                for (int z = _minz; z <= _maxz; ++z)
+                for (int z = minz; z <= maxz; ++z)
                 {
                     returnVoxels.Add(GetVoxel(x, y, z));
                 }

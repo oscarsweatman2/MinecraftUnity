@@ -39,7 +39,7 @@
 			struct v2f 
 			{
 				float4 pos : SV_POSITION;
-				fixed3 color : COLOR0;
+				fixed3 diffuse : COLOR0;
 				fixed3 ambient : COLOR1;
 				float2 uv : TEXCOORD0;
 				SHADOW_COORDS(1)
@@ -54,7 +54,7 @@
 				v2f o;
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = v.uv;
-				o.color = v.color * nl;
+				o.diffuse = v.color * nl * _LightColor0.rgb;
 				o.ambient = ShadeSH9(half4(worldNormal, 1));
 
 				TRANSFER_SHADOW(o);
@@ -68,7 +68,7 @@
 				fixed4 texColor = tex2D(_MainTex, i.uv);
 
 				fixed shadow = SHADOW_ATTENUATION(i);
-				fixed3 lighting = i.color * shadow + i.ambient;
+				fixed3 lighting = i.diffuse * shadow + i.ambient;
 
 				texColor.rgb *= lighting;
 
