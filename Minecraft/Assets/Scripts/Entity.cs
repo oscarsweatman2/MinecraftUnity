@@ -19,6 +19,8 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private float m_GravityMultiplier;
 
+    private Transform crystal;
+
     private bool m_Jump;
     private Vector2 m_Input;
     private Vector3 m_MoveDir = Vector3.zero;
@@ -26,27 +28,172 @@ public class Entity : MonoBehaviour
     private CollisionFlags m_CollisionFlags;
     private bool m_PreviouslyGrounded;
     private bool m_Jumping;
+    private IntVec3 hidelocation;
 
     public Transform Target;
 
-	void Start ()
+    enum AI_State
+    {
+        GUARD,
+        CHASE,
+        HIDE
+    };
+    private AI_State currentState;
+
+    void Start ()
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
+        currentState = AI_State.GUARD;
+        crystal = null;
 	}
 	
 	void Update ()
     {
-        //RotateView();
-        Vector3 targetPos = Target != null ? Target.position : Vector3.zero;
+        if(crystal == null)
+        {
+            crystal = Player.Inst.transform;
+        }
+
+        CheckForStateName();
+        if (currentState == AI_State.GUARD)
+        {
+            Vector2 loc = Random.insideUnitCircle * 5;
+
+            move(new Vector3(crystal.position.x + loc.x,
+                            crystal.position.y,
+                            crystal.position.z + loc.y));
+            Vector3 playerlocation = Player.Inst.transform.position;
+            Vector3 difference = playerlocation - transform.position;
+            float length = difference.magnitude;
+
+            if (length < 8)
+            {
+                currentState = AI_State.CHASE;
+            }
+        }
+        else if (currentState == AI_State.CHASE)
+        {
+            move(Target.position);
+
+            Vector3 playerlocation = Player.Inst.transform.position;
+            Vector3 difference = playerlocation - transform.position;
+            float length = difference.magnitude;
+
+            if (length < 2)
+            {
+                currentState = AI_State.HIDE;
+                bool searchingforlocation = true;
+                while (searchingforlocation)
+                {
+                    int depth = VoxelWorld.Inst.VoxelDepth;
+                    int width = VoxelWorld.Inst.VoxelWidth;
+                    int choicex = Random.RandomRange(0, depth - 1);
+                    int choicey = Random.RandomRange(0, width - 1);
+                    
+                    IntVec3 startinglocation = new IntVec3(choicex, 0, choicey);
+                    Voxel v = VoxelWorld.Inst.GetVoxel(startinglocation);
+
+                    bool blockisvalid = true;
+                    while (blockisvalid)
+                    {
+                        startinglocation.Y += 1;
+                        if(VoxelWorld.Inst.IsVoxelWorldIndexValid(startinglocation.X, startinglocation.Y, startinglocation.Z))
+                        {
+                            Voxel v2 = VoxelWorld.Inst.GetVoxel(startinglocation);
+                            if (v2.TypeDef.Type == VoxelType.Air)
+                            {
+
+                                hidelocation = startinglocation;
+
+                                searchingforlocation = false;
+
+                                currentState = AI_State.HIDE;
+                                Debug.Log("found place: " + startinglocation);
+                                    
+                            }
+                        }
+                        else
+                        {
+                            blockisvalid = false;
+                        }
+                    }
+                }
+
+
+            }
+        }
+        else if (currentState == AI_State.HIDE)
+        {
+            Vector3 hideworldlocation = new Vector3(hidelocation.X, hidelocation.Y, hidelocation.Z);
+
+            move(hideworldlocation);
+
+            Vector3 difference = hideworldlocation - transform.position;
+            float length = difference.magnitude;
+
+            if (length < 4)
+            {
+                currentState = AI_State.GUARD;
+            }
+        }
+
+        m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+        
+	}
+
+    private void CheckForStateName()
+    {
+        bool isdown = Input.GetKeyDown(KeyCode.C);
+
+
+        if (isdown == true)
+        {
+            currentState = AI_State.CHASE;
+            //Debug.Log("chasing");
+        }
+
+        isdown = Input.GetKeyDown(KeyCode.G);
+
+        if (isdown == true)
+        {
+            currentState = AI_State.GUARD;
+            //Debug.Log("guarding");
+        }
+        isdown = Input.GetKeyDown(KeyCode.H);
+
+
+        if (isdown == true)
+        {
+            currentState = AI_State.HIDE;
+            //Debug.Log("hiding");
+        }
+    }
+
+    private void move(Vector3 Target)
+    {
+        Vector3 targetPos = Target != null ? Target : Vector3.zero;
         TurnTowardTarget(targetPos);
 
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
         {
-            m_Jump = true;
-        }
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, 2))
+            {
+                if (hitInfo.collider is BoxCollider)
+                {
+                    Voxel voxel = VoxelWorld.Inst.GetVoxelFromCollider(hitInfo.collider as BoxCollider);
 
+                    if (voxel != null)
+                    {
+                        m_Jump = true;
+                    }
+                }
+            }
+        }
         if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
         {
             //StartCoroutine(m_JumpBob.DoBobCycle());
@@ -58,9 +205,7 @@ public class Entity : MonoBehaviour
         {
             m_MoveDir.y = 0f;
         }
-
-        m_PreviouslyGrounded = m_CharacterController.isGrounded;
-	}
+    }
 
     private void FixedUpdate()
     {
