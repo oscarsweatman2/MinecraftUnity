@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private float m_GravityMultiplier;
 
-    private Transform crystal;
+    private Vector3 crystal;
 
     private bool m_Jump;
     private Vector2 m_Input;
@@ -45,14 +45,14 @@ public class Entity : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
         currentState = AI_State.GUARD;
-        crystal = null;
+        crystal = new Vector3(-1, -1, -1);
 	}
 	
 	void Update ()
     {
-        if(crystal == null)
+        if(crystal == new Vector3(-1,-1,-1))
         {
-            crystal = Player.Inst.transform;
+            crystal = Player.Inst.transform.position;
         }
 
         CheckForStateName();
@@ -60,9 +60,9 @@ public class Entity : MonoBehaviour
         {
             Vector2 loc = Random.insideUnitCircle * 5;
 
-            move(new Vector3(crystal.position.x + loc.x,
-                            crystal.position.y,
-                            crystal.position.z + loc.y));
+            move(new Vector3(crystal.x + loc.x,
+                            crystal.y,
+                            crystal.z + loc.y));
             Vector3 playerlocation = Player.Inst.transform.position;
             Vector3 difference = playerlocation - transform.position;
             float length = difference.magnitude;
@@ -135,6 +135,7 @@ public class Entity : MonoBehaviour
             if (length < 4)
             {
                 currentState = AI_State.GUARD;
+                crystal = hideworldlocation;
             }
         }
 
