@@ -182,7 +182,7 @@ public class Entity : MonoBehaviour
         {
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, 2))
+            if (Physics.Raycast(ray, out hitInfo, 1))
             {
                 if (hitInfo.collider is BoxCollider)
                 {
