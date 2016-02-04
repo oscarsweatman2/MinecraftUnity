@@ -3348,15 +3348,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelTypeDefBedRk.UVTopX
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelTypeDefBedRk.UVSideX
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelTypeDefBedRk.UVBottomX
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelWidth
@@ -3368,6 +3368,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelDepth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVTopY
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVSideY
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVBottomY
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: Initialized
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
