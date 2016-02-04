@@ -37,6 +37,21 @@ public class Player : MonoBehaviour
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 ExplodeBlock(CrosshairRay, ExplosivePower);
             }
+
+            Vector3 currentPosition = transform.position;
+            float voxelsDeep = VoxelWorld.Inst.ChunksDeep * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;
+            float voxelsWide = VoxelWorld.Inst.ChunksWide * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;
+
+            if (currentPosition.x < 0)
+                currentPosition.Set(0, currentPosition.y, currentPosition.z);
+            if (currentPosition.x > voxelsWide)
+                currentPosition.Set(voxelsWide, currentPosition.y, currentPosition.z);
+            if (currentPosition.z < 0)
+                currentPosition.Set(currentPosition.x, currentPosition.y, 0);
+            if (currentPosition.z > voxelsDeep)
+                currentPosition.Set(currentPosition.x, currentPosition.y, voxelsDeep);
+
+            transform.position = currentPosition;
         }
 	}
 
