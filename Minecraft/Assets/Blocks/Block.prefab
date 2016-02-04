@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 427756}
-  - 114: {fileID: 11467982}
   - 65: {fileID: 6501682}
   m_Layer: 9
   m_Name: Block
@@ -419,62 +418,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11467982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12987690b4f99f44285aef2a31dc22bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  Definition:
-    Health: 1
-    TextureTop: {fileID: 0}
-    TextureSide: {fileID: 0}
-    TextureBottom: {fileID: 0}
-  Top: {fileID: 159580}
-  North: {fileID: 119494}
-  East: {fileID: 156852}
-  South: {fileID: 131496}
-  West: {fileID: 163248}
-  Bottom: {fileID: 185754}
-  TxtTop: {fileID: 2800000, guid: 4e5f34eb6811c1f43bc62bc6c40696a6, type: 3}
-  TxtSide: {fileID: 2800000, guid: 4e5f34eb6811c1f43bc62bc6c40696a6, type: 3}
-  TxtBottom: {fileID: 2800000, guid: 4e5f34eb6811c1f43bc62bc6c40696a6, type: 3}
-  Active: 1
-  Exposed: 1
-  Neighbors:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Health: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

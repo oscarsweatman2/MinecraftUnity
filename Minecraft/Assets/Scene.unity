@@ -1636,6 +1636,26 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 14300000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: near clip plane
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 14300000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: m_SlopeLimit
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_IsPrefabParent: 0
@@ -3026,7 +3046,7 @@ MonoBehaviour:
   ExplosivePower: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
-  ExplodeEffect: {fileID: 116178, guid: 3931e813b183b4a48826f6392c0a1121, type: 2}
+  ExplodeEffect: {fileID: 116178, guid: 3d02dd67959922c48827023e3018bd4e, type: 2}
 --- !u!1 &1812455439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3325,6 +3345,30 @@ Prefab:
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksHigh
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVTopX
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVSideX
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelTypeDefBedRk.UVBottomX
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
+      propertyPath: VoxelDepth
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}

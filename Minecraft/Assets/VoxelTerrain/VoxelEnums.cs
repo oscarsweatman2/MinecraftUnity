@@ -6,6 +6,7 @@ public enum VoxelType
     Grass,
     Dirt,
     Stone,
+    Bedrock,
     NumTypes
 }
 

@@ -23,10 +23,11 @@ public class VoxelWorld : MonoBehaviour
     public int VoxelTextureTilesAcross = 8;
     public float VoxelTextureUVBiasPercent = 0.02f;
 
-    public VoxelTypeDefinition VoxelTypeDefAir      = new VoxelTypeDefinition(VoxelType.Air, 1, false, false);
-    public VoxelTypeDefinition VoxelTypeDefGrass    = new VoxelTypeDefinition(VoxelType.Grass, 1, true, true);
-    public VoxelTypeDefinition VoxelTypeDefDirt     = new VoxelTypeDefinition(VoxelType.Dirt, 1, true, true);
-    public VoxelTypeDefinition VoxelTypeDefStone    = new VoxelTypeDefinition(VoxelType.Stone, 2, true, true);
+    public VoxelTypeDefinition VoxelTypeDefAir      = new VoxelTypeDefinition(VoxelType.Air, 1, false, false, false);
+    public VoxelTypeDefinition VoxelTypeDefGrass    = new VoxelTypeDefinition(VoxelType.Grass, 1, true, true, true);
+    public VoxelTypeDefinition VoxelTypeDefDirt     = new VoxelTypeDefinition(VoxelType.Dirt, 1, true, true, true);
+    public VoxelTypeDefinition VoxelTypeDefStone    = new VoxelTypeDefinition(VoxelType.Stone, 2, true, true, true);
+    public VoxelTypeDefinition VoxelTypeDefBedRk    = new VoxelTypeDefinition(VoxelType.Bedrock, 1, true, true, false);
 
     public Dictionary<VoxelType, VoxelTypeDefinition> VoxelTypeDefs;
 
@@ -51,6 +52,7 @@ public class VoxelWorld : MonoBehaviour
         VoxelTypeDefs[VoxelType.Grass] = VoxelTypeDefGrass;
         VoxelTypeDefs[VoxelType.Dirt] = VoxelTypeDefDirt;
         VoxelTypeDefs[VoxelType.Stone] = VoxelTypeDefStone;
+        VoxelTypeDefs[VoxelType.Bedrock] = VoxelTypeDefBedRk;
 
         VoxelTypeDefs.Values.ToList().ForEach(def => def.RecalcUVSet());
 
@@ -158,6 +160,8 @@ public class VoxelWorld : MonoBehaviour
                     }
                 }
             }
+            if (voxel.Position.Y == 0)
+                voxel.SetType(VoxelType.Bedrock);
         }
     }
 

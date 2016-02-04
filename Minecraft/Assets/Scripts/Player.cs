@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             if (hitInfo.collider is BoxCollider)
             {
                 List<Voxel> voxels = VoxelWorld.Inst.GetVoxels(hitInfo.point, radius);
-                voxels.ForEach(vox => vox.SetType(VoxelType.Air));
+                voxels.ForEach(vox => vox.TakeDamage(3));
                 VoxelWorld.Inst.Refresh();
 
                 GameObject.Instantiate(ExplodeEffect, hitInfo.point, Quaternion.identity);

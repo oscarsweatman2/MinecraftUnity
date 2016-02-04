@@ -7,6 +7,7 @@ public class VoxelTypeDefinition
     public int                  MaxHealth; 
     public bool                 IsVisible;   
     public bool                 IsSolid;
+    public bool                 IsBreakable;
     public int                  UVTopX;
     public int                  UVTopY;
     public int                  UVSideX;
@@ -15,12 +16,13 @@ public class VoxelTypeDefinition
     public int                  UVBottomY;
     public VoxelUVSet           UVSet;
 
-    public VoxelTypeDefinition(VoxelType type, int maxHealth, bool isSolid, bool isVisible)
+    public VoxelTypeDefinition(VoxelType type, int maxHealth, bool isSolid, bool isVisible, bool isBreakable)
     {
         Type = type;
         MaxHealth = maxHealth;
         IsSolid = isSolid;
         IsVisible = isVisible;
+        IsBreakable = isBreakable;
         UVTopX = 0;
         UVTopY = 0;
         UVSideX = 0;
