@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public static Player Inst = null;
+
     public float ReachDistance = 3.0f;
     public LayerMask ReachMask;
 
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
 
 	void Start ()
     {
+        Inst = this;
 	}
 	
 	void Update ()
