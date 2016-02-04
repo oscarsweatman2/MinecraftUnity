@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: VoxelTerrainMat
-  m_Shader: {fileID: 4800000, guid: c9a3b466e5c5d5447a36699e5db9dfac, type: 3}
+  m_Shader: {fileID: 4800000, guid: a0588d8c2ebe42c4b9877408fc47b5d9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
