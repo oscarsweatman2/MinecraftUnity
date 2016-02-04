@@ -1004,6 +1004,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534055869}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &631163271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 631163273}
+  - 114: {fileID: 631163272}
+  m_Layer: 0
+  m_Name: Gem Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &631163272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 631163271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7243879db1e60224cb57e119aae5ef37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numGems: 20
+  gemPrefab: {fileID: 11457460, guid: f7e7997c58e3fc5469a901cdb36a578c, type: 2}
+--- !u!4 &631163273
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 631163271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &671652772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,7 +3385,7 @@ Prefab:
       objectReference: {fileID: 2800000, guid: 30de582d65ab9194eb63a5bf15dba774, type: 3}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksHigh
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelTypeDefBedRk.UVTopX
