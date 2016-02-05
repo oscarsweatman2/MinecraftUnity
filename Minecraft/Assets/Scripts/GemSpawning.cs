@@ -9,6 +9,10 @@ public class GemSpawning : MonoBehaviour
     public Gem gemPrefab = null;
     private Gem[] gems;
 
+    public int goblinsPerGem = 3;
+    public int goblinSpawnRadius = 3;
+    public Entity goblinPrefab = null;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -21,6 +25,8 @@ public class GemSpawning : MonoBehaviour
 			gems[i].index = i;
             spawnGem(gems[i]);
         }
+
+        spawnGoblins();
         
 	}
 	
@@ -61,5 +67,23 @@ public class GemSpawning : MonoBehaviour
     public void spawnGem(Gem gem, int x, int y, int z)
     {
         gem.transform.position = new Vector3(x + .5f, y + .5f, z + .5f);
+    }
+
+    public void spawnGoblins()
+    {
+        foreach(Gem gem in gems)
+        {
+            for(int i = 0; i < goblinsPerGem; ++i)
+            {
+                Entity goblin = GameObject.Instantiate<Entity>(goblinPrefab);
+                goblin.myGem = gem;
+                int x = (int)(Random.value * goblinSpawnRadius * 2 + gem.transform.position.x - goblinSpawnRadius);
+                int z = (int)(Random.value * goblinSpawnRadius * 2 + gem.transform.position.z - goblinSpawnRadius);
+                int y = (int)(VoxelWorld.Inst.ChunksHigh * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize + 1);
+
+                goblin.transform.position = new Vector3(x + .5f, y + 1, z + .5f);
+            }
+            
+        }
     }
 }
