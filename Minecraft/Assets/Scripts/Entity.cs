@@ -29,26 +29,24 @@ public class Entity : MonoBehaviour
     private bool m_Jumping;
     private IntVec3 hidelocation;
 
-    public Transform Target;
-    public Gem myGem;
+    public Gem myGem = null;
 
-   
+    public float hideTime = 5;
+    private float currentTime = 0;
 
-    enum AI_State
+    public enum AI_State
     {
         GUARD,
         CHASE,
         HIDE
     };
-    private AI_State currentState;
+    public AI_State currentState;
 
     void Start ()
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
         currentState = AI_State.GUARD;
-
-        myGem = null;
 	}
 
     void checkgem()
@@ -88,7 +86,7 @@ public class Entity : MonoBehaviour
         }
         else if (currentState == AI_State.CHASE)
         {
-            move(Target.position);
+            move(myGem.transform.position);
 
             Vector3 playerlocation = Player.Inst.transform.position;
             Vector3 difference = playerlocation - transform.position;
@@ -108,8 +106,8 @@ public class Entity : MonoBehaviour
                     {
                         int depth = VoxelWorld.Inst.VoxelDepth;
                         int width = VoxelWorld.Inst.VoxelWidth;
-                        int choicex = Random.RandomRange(0, depth - 1);
-                        int choicey = Random.RandomRange(0, width - 1);
+                        int choicex = (int)(Random.value * depth - 1);
+                        int choicey = (int)(Random.value * width - 1);
 
                         IntVec3 startinglocation = new IntVec3(choicex, 0, choicey);
                         Voxel v = VoxelWorld.Inst.GetVoxel(startinglocation);
@@ -138,9 +136,15 @@ public class Entity : MonoBehaviour
                                 blockisvalid = false;
                             }
                         }
+                        
+                        currentTime = 0;
                     }
 
 
+                }
+                if(!myGem.isHeld)
+                {
+                    currentState = AI_State.GUARD;
                 }
             }
         }
@@ -153,7 +157,9 @@ public class Entity : MonoBehaviour
             Vector3 difference = hideworldlocation - transform.position;
             float length = difference.magnitude;
 
-            if (length < 4)
+            currentTime += Time.deltaTime;
+
+            if (length < 4 || currentTime >= hideTime)
             {
                 currentState = AI_State.GUARD;
                 myGem.holder = null;
@@ -168,13 +174,13 @@ public class Entity : MonoBehaviour
         float voxelsWide = VoxelWorld.Inst.ChunksWide * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;
 
         if (transform.position.x < 0)
-            transform.position.Set(0, transform.position.y, transform.position.z);
+            transform.position = new Vector3(0, transform.position.y, transform.position.z);
         if (transform.position.x > voxelsWide)
-            transform.position.Set(voxelsWide, transform.position.y, transform.position.z);
+            transform.position = new Vector3(voxelsWide, transform.position.y, transform.position.z);
         if (transform.position.z < 0)
-            transform.position.Set(transform.position.x, transform.position.y, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         if (transform.position.z > voxelsDeep)
-            transform.position.Set(transform.position.x, transform.position.y, voxelsDeep);
+            transform.position = new Vector3(transform.position.x, transform.position.y, voxelsDeep);
     }
 
     private void CheckForStateName()
