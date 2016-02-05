@@ -4,10 +4,15 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public static Player Inst = null;
+
     public float ReachDistance = 3.0f;
     public LayerMask ReachMask;
 
     public float ExplosivePower = 3.0f;
+
+    public int NumBlocks = 0;
+    public int MaxBlocks = 10;
 
     public Texture Crosshair = null;
     public float CrosshairScale = 1.0f;
@@ -18,8 +23,16 @@ public class Player : MonoBehaviour
     public AudioClip RemoveRock = null;
     public AudioClip RemoveChunk = null;
 
+	public bool[] heldGems;
+
 	void Start ()
     {
+        Inst = this;
+
+		transform.position = new Vector3(transform.position.x,
+			VoxelWorld.Inst.ChunksHigh * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize + 1, transform.position.z);
+
+		heldGems = new bool[GemSpawning.Inst.numGems];
 	}
 	
 	void Update ()
@@ -59,6 +72,18 @@ public class Player : MonoBehaviour
         }
 	}
 
+	void OnTriggerEnter(Collider other)
+	{
+		Gem gem = other.GetComponent<Gem>();
+		if(gem != null)
+		{
+            heldGems[gem.index] = true;
+			gem.holder = gameObject;
+			gem.isHeld = true;
+		}
+		
+	}
+
     void AttackBlock(Ray ray)
     {
         RaycastHit hitInfo;
@@ -70,7 +95,18 @@ public class Player : MonoBehaviour
                 if (voxel != null)
                 {
                     voxel.TakeDamage(1);
+
                     this.GetComponent<AudioSource>().PlayOneShot(RemoveDirt);
+
+
+                    if( voxel.TypeDef.Type == VoxelType.Air)
+                    {
+                        ++NumBlocks;
+                        if (NumBlocks > MaxBlocks)
+                        {
+                            NumBlocks = MaxBlocks;
+                        }
+                    }
 
                 }
             }
@@ -79,6 +115,10 @@ public class Player : MonoBehaviour
 
     void PlaceBlock(Ray ray, VoxelType type)
     {
+        if (NumBlocks <= 0 )
+        {
+            return;
+        }
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
         {
@@ -109,7 +149,11 @@ public class Player : MonoBehaviour
                         {
                             placeVoxel.SetType(type);
                             VoxelWorld.Inst.Refresh();
+
                             this.GetComponent<AudioSource>().PlayOneShot(PlaceDirt);
+
+                            NumBlocks--;
+
                         }
                     }
                 }

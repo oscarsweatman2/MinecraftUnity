@@ -2,19 +2,7 @@
 ## Custom
 #############
 
-Minecraft/Library/cache
-Minecraft/Library/metadata
-Minecraft/Library/ScriptAssemblies
-Minecraft/Library/assetDatabase3
-Minecraft/Library/assetservercachev3
-Minecraft/Library/AssetServerCacheV3
-Minecraft/Library/AssetVersioning.db
-Minecraft/Library/expandedItems
-Minecraft/Library/FailedAssetImports.txt
-Minecraft/Library/guidmapper
-Minecraft/Library/ScriptMapper
-Minecraft/Library/unity default resources
-Minecraft/Library/unity editor resources
+Minecraft/Library
 Minecraft/Temp/
 *.sln
 *.csproj
@@ -78,7 +66,6 @@ build/
 *_i.c
 *_p.c
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -240,3 +227,4 @@ Minecraft/Library/InspectorExpandedItems.asset
 Minecraft/Library/CurrentLayout.dwlt
 Minecraft/Library/InspectorExpandedItems.asset
 Minecraft/Library/CurrentMaximizeLayout.dwlt
+Minecraft/Library/CurrentLayout.dwlt
