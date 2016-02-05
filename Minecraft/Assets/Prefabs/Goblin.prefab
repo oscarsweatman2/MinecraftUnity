@@ -48,7 +48,7 @@ GameObject:
   - 143: {fileID: 14358218}
   - 114: {fileID: 11437796}
   m_Layer: 0
-  m_Name: Sheep
+  m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
