@@ -32,6 +32,9 @@ public class Entity : MonoBehaviour
 
     public Transform Target;
 
+    // TODO: Remove this once Entity is spawned knowing where the crystal is
+    bool bTempUsePlayerPosAsCrystal;
+
     enum AI_State
     {
         GUARD,
@@ -45,12 +48,14 @@ public class Entity : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
         currentState = AI_State.GUARD;
+
+        bTempUsePlayerPosAsCrystal = true;
         crystal = new Vector3(-1, -1, -1);
 	}
 	
 	void Update ()
     {
-        if(crystal == new Vector3(-1,-1,-1))
+        if(bTempUsePlayerPosAsCrystal)
         {
             crystal = Player.Inst.transform.position;
         }
@@ -136,6 +141,7 @@ public class Entity : MonoBehaviour
             {
                 currentState = AI_State.GUARD;
                 crystal = hideworldlocation;
+                bTempUsePlayerPosAsCrystal = false;
             }
         }
 
@@ -177,24 +183,6 @@ public class Entity : MonoBehaviour
         Vector3 targetPos = Target != null ? Target : Vector3.zero;
         TurnTowardTarget(targetPos);
 
-        // the jump state needs to read here to make sure it is not missed
-        if (!m_Jump)
-        {
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, 1))
-            {
-                if (hitInfo.collider is BoxCollider)
-                {
-                    Voxel voxel = VoxelWorld.Inst.GetVoxelFromCollider(hitInfo.collider as BoxCollider);
-
-                    if (voxel != null)
-                    {
-                        m_Jump = true;
-                    }
-                }
-            }
-        }
         if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
         {
             //StartCoroutine(m_JumpBob.DoBobCycle());
@@ -301,6 +289,15 @@ public class Entity : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // Check if the Entity is colliding with something on it's side
+        if ((m_CollisionFlags & CollisionFlags.CollidedSides) != 0)
+        {
+            if (!m_Jump)
+            {
+                m_Jump = true;
+            }
+        }
+
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
         if (m_CollisionFlags == CollisionFlags.Below)
