@@ -1028,11 +1028,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 631163271}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7243879db1e60224cb57e119aae5ef37, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c54c6d2a24e7804e9734086aa23f12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numGems: 20
-  gemPrefab: {fileID: 11457460, guid: f7e7997c58e3fc5469a901cdb36a578c, type: 2}
+  gemPrefab: {fileID: 11485440, guid: 26fce7d720e4bc545bcbdb3adc278f02, type: 2}
 --- !u!4 &631163273
 Transform:
   m_ObjectHideFlags: 0

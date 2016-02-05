@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3311310}
   - 135: {fileID: 13532202}
   - 23: {fileID: 2315576}
-  - 114: {fileID: 11457460}
+  - 114: {fileID: 11485440}
   m_Layer: 0
   m_Name: Gem
   m_TagString: Untagged
@@ -64,7 +64,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127848}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11457460
+--- !u!114 &11485440
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 127848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f8d8edcdc9f304d81f73b665ff3c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: bcaa0113e49b86445b5cd19f36819df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
