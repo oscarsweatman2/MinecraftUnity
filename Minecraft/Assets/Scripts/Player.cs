@@ -16,9 +16,16 @@ public class Player : MonoBehaviour
 
     public GameObject ExplodeEffect = null;
 
+	public bool[] heldGems;
+
 	void Start ()
     {
         Inst = this;
+
+		transform.position = new Vector3(transform.position.x,
+			VoxelWorld.Inst.ChunksHigh * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize + 1, transform.position.z);
+
+		heldGems = new bool[GemSpawning.Inst.numGems];
 	}
 	
 	void Update ()
@@ -56,6 +63,18 @@ public class Player : MonoBehaviour
 
             transform.position = currentPosition;
         }
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		Gem gem = other.GetComponent<Gem>();
+		if(gem != null)
+		{
+            heldGems[gem.index] = true;
+			gem.holder = gameObject;
+			gem.isHeld = true;
+		}
+		
 	}
 
     void AttackBlock(Ray ray)

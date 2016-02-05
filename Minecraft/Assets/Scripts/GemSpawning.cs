@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GemSpawning : MonoBehaviour
 {
+	public static GemSpawning Inst = null;
+
     public int numGems = 3;
     public Gem gemPrefab = null;
     private Gem[] gems;
@@ -10,10 +12,13 @@ public class GemSpawning : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+		Inst = this;
+
         gems = new Gem[numGems];
         for(int i = 0; i < numGems; ++i)
         {
             gems[i] = GameObject.Instantiate<Gem>(gemPrefab);
+			gems[i].index = i;
             spawnGem(gems[i]);
         }
         
