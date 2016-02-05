@@ -11,6 +11,7 @@ GameObject:
   - 223: {fileID: 22377992}
   - 114: {fileID: 11485128}
   - 114: {fileID: 11478274}
+  - 114: {fileID: 11486428}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -49,7 +50,7 @@ GameObject:
   - 114: {fileID: 11432688}
   - 114: {fileID: 11443016}
   m_Layer: 5
-  m_Name: Text
+  m_Name: BlockNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +101,7 @@ GameObject:
   - 222: {fileID: 22278896}
   - 114: {fileID: 11414286}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BlockIMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +118,7 @@ GameObject:
   - 222: {fileID: 22262216}
   - 114: {fileID: 11477422}
   m_Layer: 5
-  m_Name: Crystal
+  m_Name: Crystal Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,6 +351,21 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &11486428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad510a98dffd951418e2291859f67b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RedCrystalUI: {fileID: 131152}
+  BlueCrystalUI: {fileID: 124102}
+  GreenCrystalUI: {fileID: 174636}
+  BlockText: {fileID: 11432688}
 --- !u!114 &11488848
 MonoBehaviour:
   m_ObjectHideFlags: 1

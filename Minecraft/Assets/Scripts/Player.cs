@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
     public float ExplosivePower = 3.0f;
 
+    public int NumBlocks = 0;
+    public int MaxBlocks = 10;
+
     public Texture Crosshair = null;
     public float CrosshairScale = 1.0f;
 
@@ -88,6 +91,14 @@ public class Player : MonoBehaviour
                 if (voxel != null)
                 {
                     voxel.TakeDamage(1);
+                    if( voxel.TypeDef.Type == VoxelType.Air)
+                    {
+                        ++NumBlocks;
+                        if (NumBlocks > MaxBlocks)
+                        {
+                            NumBlocks = MaxBlocks;
+                        }
+                    }
                 }
             }
         }
@@ -95,6 +106,10 @@ public class Player : MonoBehaviour
 
     void PlaceBlock(Ray ray, VoxelType type)
     {
+        if (NumBlocks <= 0 )
+        {
+            return;
+        }
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
         {
@@ -125,6 +140,7 @@ public class Player : MonoBehaviour
                         {
                             placeVoxel.SetType(type);
                             VoxelWorld.Inst.Refresh();
+                            NumBlocks--;
                         }
                     }
                 }
