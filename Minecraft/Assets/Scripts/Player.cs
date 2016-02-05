@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     public float CrosshairScale = 1.0f;
 
     public GameObject ExplodeEffect = null;
+    public AudioClip PlaceDirt = null;
+    public AudioClip RemoveDirt = null;
+    public AudioClip RemoveRock = null;
+    public AudioClip RemoveChunk = null;
 
 	void Start ()
     {
@@ -66,6 +70,8 @@ public class Player : MonoBehaviour
                 if (voxel != null)
                 {
                     voxel.TakeDamage(1);
+                    this.GetComponent<AudioSource>().PlayOneShot(RemoveDirt);
+
                 }
             }
         }
@@ -103,6 +109,7 @@ public class Player : MonoBehaviour
                         {
                             placeVoxel.SetType(type);
                             VoxelWorld.Inst.Refresh();
+                            this.GetComponent<AudioSource>().PlayOneShot(PlaceDirt);
                         }
                     }
                 }
@@ -122,6 +129,7 @@ public class Player : MonoBehaviour
                 VoxelWorld.Inst.Refresh();
 
                 GameObject.Instantiate(ExplodeEffect, hitInfo.point, Quaternion.identity);
+                this.GetComponent<AudioSource>().PlayOneShot(RemoveChunk);
             }
         }
     }
