@@ -82,6 +82,7 @@ public class Entity : MonoBehaviour
             if (length < 8)
             {
                 currentState = AI_State.CHASE;
+
             }
         }
         else if (currentState == AI_State.CHASE)
@@ -127,7 +128,7 @@ public class Entity : MonoBehaviour
                                     searchingforlocation = false;
 
                                     currentState = AI_State.HIDE;
-                                    Debug.Log("found place: " + startinglocation);
+                                    // Debug.Log("found place: " + startinglocation);
 
                                 }
                             }
@@ -162,9 +163,10 @@ public class Entity : MonoBehaviour
             if (length < 4 || currentTime >= hideTime)
             {
                 currentState = AI_State.GUARD;
+                
                 myGem.holder = null;
                 myGem.isHeld = false;
-               
+                GemSpawning.Inst.spawnGem(myGem, (int)transform.position.x, (int)transform.position.y + 1, (int)transform.position.z);
             }
         }
 

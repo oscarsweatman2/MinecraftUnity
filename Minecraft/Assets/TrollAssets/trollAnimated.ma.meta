@@ -208,7 +208,7 @@ ModelImporter:
     4300060: polySurface4
     4300062: polySurface14
     4300064: polySurface1
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -217,7 +217,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleRotations: 0
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -230,7 +230,139 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 120
+      lastFrame: 182
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: null1
+        weight: 1
+      - path: pCube6
+        weight: 1
+      - path: persp1
+        weight: 1
+      - path: polySurface1
+        weight: 1
+      - path: polySurface4
+        weight: 1
+      - path: polySurface14
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Left_Hip
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee/Left_Ankle
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee/Left_Ankle/polySurface28
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee/Left_Ankle/polySurface29
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee/polySurface19
+        weight: 1
+      - path: Root/Left_Hip/Left_Knee/polySurface20
+        weight: 1
+      - path: Root/Left_Hip/polySurface15
+        weight: 1
+      - path: Root/Left_Hip/polySurface17
+        weight: 1
+      - path: Root/Right_Hip
+        weight: 1
+      - path: Root/Right_Hip/polySurface16
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee/polySurface18
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee/polySurface21
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee/Right_Ankle
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee/Right_Ankle/polySurface26
+        weight: 1
+      - path: Root/Right_Hip/Right_Knee/Right_Ankle/polySurface27
+        weight: 1
+      - path: Root/Spine
+        weight: 1
+      - path: Root/Spine/Head
+        weight: 1
+      - path: Root/Spine/Head/polySurface2
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface3
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface5
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface30
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface31
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface32
+        weight: 1
+      - path: Root/Spine/Head/polySurface2/polySurface33
+        weight: 1
+      - path: Root/Spine/Left_Shoulder
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow/Left_Wrist
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow/Left_Wrist/polySurface23
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow/Left_Wrist/polySurface25
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow/polySurface12
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/Left_Elbow/polySurface13
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/polySurface6
+        weight: 1
+      - path: Root/Spine/Left_Shoulder/polySurface11
+        weight: 1
+      - path: Root/Spine/right_Shoulder
+        weight: 1
+      - path: Root/Spine/right_Shoulder/polySurface7
+        weight: 1
+      - path: Root/Spine/right_Shoulder/polySurface8
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow/polySurface9
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow/polySurface10
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow/Right_Wrist
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow/Right_Wrist/polySurface22
+        weight: 1
+      - path: Root/Spine/right_Shoulder/Right_Elbow/Right_Wrist/polySurface24
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -50,11 +50,11 @@ public class Player : MonoBehaviour
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 PlaceBlock(CrosshairRay, VoxelType.Dirt);
             }
-            else if (Input.GetButtonDown("Fire3"))
-            {
-                Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-                ExplodeBlock(CrosshairRay, ExplosivePower);
-            }
+            // else if (Input.GetButtonDown("Fire3"))
+            // {
+            //     Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            //     ExplodeBlock(CrosshairRay, ExplosivePower);
+            // }
 
             Vector3 currentPosition = transform.position;
             float voxelsDeep = VoxelWorld.Inst.ChunksDeep * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;

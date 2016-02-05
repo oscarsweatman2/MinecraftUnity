@@ -6,7 +6,9 @@ public class GemSpawning : MonoBehaviour
 	public static GemSpawning Inst = null;
 
     public int numGems = 3;
-    public Gem gemPrefab = null;
+    public Gem RgemPrefab = null;
+    public Gem BgemPrefab = null;
+    public Gem GgemPrefab = null;
     private Gem[] gems;
 
     public int goblinsPerGem = 3;
@@ -21,8 +23,14 @@ public class GemSpawning : MonoBehaviour
         gems = new Gem[numGems];
         for(int i = 0; i < numGems; ++i)
         {
-            gems[i] = GameObject.Instantiate<Gem>(gemPrefab);
-			gems[i].index = i;
+            if(i % 3 == 0)
+                gems[i] = GameObject.Instantiate<Gem>(RgemPrefab);
+            if(i % 3 == 1)
+                gems[i] = GameObject.Instantiate<Gem>(GgemPrefab);
+            if(i % 3 == 2)
+                gems[i] = GameObject.Instantiate<Gem>(BgemPrefab);
+
+            gems[i].index = i;
             spawnGem(gems[i]);
         }
 

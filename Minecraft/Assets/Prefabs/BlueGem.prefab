@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11499802}
   - 135: {fileID: 13521472}
   m_Layer: 0
-  m_Name: GreenGem
+  m_Name: BlueGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5012283cc4eb7494b9594c7843189dc4, type: 2}
+  - {fileID: 2100000, guid: 3d476cfd139ec3a43b3ec1461ea75215, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -119,7 +119,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5012283cc4eb7494b9594c7843189dc4, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d476cfd139ec3a43b3ec1461ea75215, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 171710}
