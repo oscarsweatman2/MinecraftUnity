@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public AudioClip RemoveDirt = null;
     public AudioClip RemoveRock = null;
     public AudioClip RemoveChunk = null;
+    public AudioClip GotGems = null;
 
 	public bool[] heldGems;
 
@@ -80,7 +81,8 @@ public class Player : MonoBehaviour
             heldGems[gem.index] = true;
 			gem.holder = gameObject;
 			gem.isHeld = true;
-		}
+            this.GetComponent<AudioSource>().PlayOneShot(GotGems);
+        }
 		
 	}
 
