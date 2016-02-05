@@ -19,7 +19,6 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private float m_GravityMultiplier;
 
-    private Vector3 crystal;
 
     private bool m_Jump;
     private Vector2 m_Input;
@@ -31,9 +30,9 @@ public class Entity : MonoBehaviour
     private IntVec3 hidelocation;
 
     public Transform Target;
+    public Gem myGem;
 
-    // TODO: Remove this once Entity is spawned knowing where the crystal is
-    bool bTempUsePlayerPosAsCrystal;
+   
 
     enum AI_State
     {
@@ -49,29 +48,39 @@ public class Entity : MonoBehaviour
         m_Jumping = false;
         currentState = AI_State.GUARD;
 
-        bTempUsePlayerPosAsCrystal = true;
-        crystal = new Vector3(-1, -1, -1);
+        myGem = null;
 	}
-	
+
+    void checkgem()
+    {
+        if (myGem != null)
+        {
+            if (myGem.isHeld && currentState == AI_State.GUARD)
+            {
+                currentState = AI_State.CHASE;
+            }
+        }
+    }
 	void Update ()
     {
-        if(bTempUsePlayerPosAsCrystal)
-        {
-            crystal = Player.Inst.transform.position;
-        }
+        checkgem();
+
+       
 
         CheckForStateName();
         if (currentState == AI_State.GUARD)
         {
             Vector2 loc = Random.insideUnitCircle * 5;
-
-            move(new Vector3(crystal.x + loc.x,
-                            crystal.y,
-                            crystal.z + loc.y));
-            Vector3 playerlocation = Player.Inst.transform.position;
-            Vector3 difference = playerlocation - transform.position;
-            float length = difference.magnitude;
-
+            if (myGem != null)
+            {
+                move(new Vector3(myGem.transform.position.x + loc.x,
+                              myGem.transform.position.y,
+                              myGem.transform.position.z + loc.y));
+            }
+                Vector3 playerlocation = Player.Inst.transform.position;
+                Vector3 difference = playerlocation - transform.position;
+                float length = difference.magnitude;
+            
             if (length < 8)
             {
                 currentState = AI_State.CHASE;
@@ -85,47 +94,54 @@ public class Entity : MonoBehaviour
             Vector3 difference = playerlocation - transform.position;
             float length = difference.magnitude;
 
-            if (length < 2)
+            if (myGem != null)
             {
-                currentState = AI_State.HIDE;
-                bool searchingforlocation = true;
-                while (searchingforlocation)
+                if (length < 2 && Player.Inst.heldGems[myGem.index])
                 {
-                    int depth = VoxelWorld.Inst.VoxelDepth;
-                    int width = VoxelWorld.Inst.VoxelWidth;
-                    int choicex = Random.RandomRange(0, depth - 1);
-                    int choicey = Random.RandomRange(0, width - 1);
-                    
-                    IntVec3 startinglocation = new IntVec3(choicex, 0, choicey);
-                    Voxel v = VoxelWorld.Inst.GetVoxel(startinglocation);
+                    currentState = AI_State.HIDE;
 
-                    bool blockisvalid = true;
-                    while (blockisvalid)
+                    Player.Inst.heldGems[myGem.index] = false;
+                    myGem.holder = gameObject;
+
+                    bool searchingforlocation = true;
+                    while (searchingforlocation)
                     {
-                        startinglocation.Y += 1;
-                        if(VoxelWorld.Inst.IsVoxelWorldIndexValid(startinglocation.X, startinglocation.Y, startinglocation.Z))
+                        int depth = VoxelWorld.Inst.VoxelDepth;
+                        int width = VoxelWorld.Inst.VoxelWidth;
+                        int choicex = Random.RandomRange(0, depth - 1);
+                        int choicey = Random.RandomRange(0, width - 1);
+
+                        IntVec3 startinglocation = new IntVec3(choicex, 0, choicey);
+                        Voxel v = VoxelWorld.Inst.GetVoxel(startinglocation);
+
+                        bool blockisvalid = true;
+                        while (blockisvalid)
                         {
-                            Voxel v2 = VoxelWorld.Inst.GetVoxel(startinglocation);
-                            if (v2.TypeDef.Type == VoxelType.Air)
+                            startinglocation.Y += 1;
+                            if (VoxelWorld.Inst.IsVoxelWorldIndexValid(startinglocation.X, startinglocation.Y, startinglocation.Z))
                             {
+                                Voxel v2 = VoxelWorld.Inst.GetVoxel(startinglocation);
+                                if (v2.TypeDef.Type == VoxelType.Air)
+                                {
 
-                                hidelocation = startinglocation;
+                                    hidelocation = startinglocation;
 
-                                searchingforlocation = false;
+                                    searchingforlocation = false;
 
-                                currentState = AI_State.HIDE;
-                                Debug.Log("found place: " + startinglocation);
-                                    
+                                    currentState = AI_State.HIDE;
+                                    Debug.Log("found place: " + startinglocation);
+
+                                }
+                            }
+                            else
+                            {
+                                blockisvalid = false;
                             }
                         }
-                        else
-                        {
-                            blockisvalid = false;
-                        }
                     }
+
+
                 }
-
-
             }
         }
         else if (currentState == AI_State.HIDE)
@@ -140,15 +156,26 @@ public class Entity : MonoBehaviour
             if (length < 4)
             {
                 currentState = AI_State.GUARD;
-                crystal = hideworldlocation;
-                bTempUsePlayerPosAsCrystal = false;
+                myGem.holder = null;
+                myGem.isHeld = false;
+               
             }
         }
 
         m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-        
-	}
+        float voxelsDeep = VoxelWorld.Inst.ChunksDeep * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;
+        float voxelsWide = VoxelWorld.Inst.ChunksWide * VoxelWorld.Inst.ChunkVoxelSize * VoxelWorld.Inst.PhysicalVoxelSize;
+
+        if (transform.position.x < 0)
+            transform.position.Set(0, transform.position.y, transform.position.z);
+        if (transform.position.x > voxelsWide)
+            transform.position.Set(voxelsWide, transform.position.y, transform.position.z);
+        if (transform.position.z < 0)
+            transform.position.Set(transform.position.x, transform.position.y, 0);
+        if (transform.position.z > voxelsDeep)
+            transform.position.Set(transform.position.x, transform.position.y, voxelsDeep);
+    }
 
     private void CheckForStateName()
     {
